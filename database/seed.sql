@@ -4,7 +4,7 @@ USE tatacara_sholat;
 -- Identitas Kelompok
 -- -------------------------------------------------
 INSERT INTO kelompok (nama_kelompok, prodi, mata_kuliah, dosen) VALUES
-('Kelompok 1', 'Manajemen Bisnis Syariah', 'Pengembangan Aplikasi Web', 'Dedy Susanto, S.Pd.I., M.M.');
+('Kelompok 1', 'Teknik Informatika', 'AIK 4', 'Dedy Susanto, S.Pd.I., M.M.');
 
 -- -------------------------------------------------
 -- Kategori
@@ -16,11 +16,11 @@ SELECT * FROM kategori;
 -- Anggota Kelompok
 -- -------------------------------------------------
 INSERT INTO anggota (id_kelompok, nama, nim, peran, urutan) VALUES
-(1,'TRISYA SUPRIATI CAROLINA',  NULL, 'Ketua Tim / Project Manager',     1),
-(1,'REZA RAMADHAN',              NULL, 'Front-end Developer',              2),
-(1,'MOCH YANWAR QADAVI',         NULL, 'Back-end Developer',               3),
-(1,'SURYA HAFAZH',               NULL, 'Database & Content Engineer',      4),
-(1,'PUTRI CANTIKA CITRA SRI HADIANTO', NULL, 'QA, Dokumentasi & Deployment', 5);
+(1,'REZA RAMADHAN',  '241220017', 'Ketua Tim / Project Manager',     1),
+(1,'MOCH YANWAR QADAVI',              '241220033', 'Front-end Developer',              2),
+(1,'TRISYA SUPRIATI CAROLINA',         '241220025', 'Back-end Developer',               3),
+(1,'SURYA HAFAZH',               '241220032', 'Database & Content Engineer',      4),
+(1,'PUTRI CANTIKA CITRA SRI HADIANTO', '241220006', 'QA, Dokumentasi & Deployment', 5);
 
 -- =========================================================
 -- KATEGORI DEWASA (id_kategori = 1)
@@ -297,8 +297,14 @@ INSERT INTO bacaan (id_gerakan, urutan, teks_arab, teks_latin, terjemahan, audio
  'Segala penghormatan hanya milik Allah... (bacaan tasyahud)',
  'assets/audio/anak/11-tasyahud.mp3','HPT Muhammadiyah'),
  (25,1,
-'اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ ، كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ ، إِنَّكَ حَمِيدٌ مَجِيدٌ ، اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ ، كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ ، إِنَّكَ حَمِيدٌ مَجِيدٌ',
-'Allaahumma shalli alaa muhammadin wa alaa aali muhammad. Kamaa shallaita alaa ibraahiima wa alaa aali ibraahiim. Innaka hamiidun majiid. Allaahumma baarik alaa muhammadin wa alaa aali muhammad. Kamaa baarakta alaa ibraahiima wa alaa aali ibraahiim. Innaka hamiidun majiid.',
+'التَّحِيَّاتُ لِلَّهِ وَالصَّلَوَاتُ وَالطَّيِّبَاتُ ...', 
+'Attahiyyaatu lillaahi wash sholawaatu wath thayyibaat...',
+ 'Segala penghormatan hanya milik Allah... (bacaan tasyahud)',
+'assets/audio/anak/12-shalawat.mp3',
+'HPT Muhammadiyah'),
+ (25,2,
+'اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ ، كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ ، إِنَّكَ حَمِيدٌ مَجِيدٌ ، اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ ، كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ ، إِنَّكَ حَمِيدٌ مَجِيدٌ', 
+'Allaahumma shalli alaa muhammadin wa alaa aali muhammad. Kamaa shallaita alaa ibraahiima wa alaa aali ibraahiim. Allaahumma baarik alaa muhammadin wa alaa aali muhammad. Kamaa baarakta alaa ibraahiima wa alaa aali ibraahiim. Innaka hamiidun majiid.',
 'Ya Allah, limpahkanlah shalawat kepada Nabi Muhammad dan keluarga Nabi Muhammad sebagaimana Engkau telah melimpahkan shalawat kepada Nabi Ibrahim dan keluarga Nabi Ibrahim. Sesungguhnya Engkau Maha Terpuji lagi Maha Mulia. Ya Allah, limpahkanlah keberkahan kepada Nabi Muhammad dan keluarga Nabi Muhammad sebagaimana Engkau telah melimpahkan keberkahan kepada Nabi Ibrahim dan keluarga Nabi Ibrahim. Sesungguhnya Engkau Maha Terpuji lagi Maha Mulia.',
 'assets/audio/anak/12-shalawat.mp3',
 'HPT Muhammadiyah'),
