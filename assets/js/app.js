@@ -16,8 +16,18 @@ const SholatApp = (() => {
   }
 
   // ---------- F-01: Daftar Gerakan ----------
+  function renderSkeletonList(listEl, count = 5) {
+    listEl.innerHTML = Array.from({ length: count }).map(() => `
+      <li class="gerakan-item skeleton">
+        <span class="gerakan-num skeleton-bar" style="width:36px;border-radius:50%;"></span>
+        <span class="gerakan-name skeleton-bar" style="width:${40 + Math.random() * 35}%;"></span>
+      </li>
+    `).join('');
+  }
+
   async function renderGerakanList(kategori) {
     const listEl = document.getElementById('gerakan-list');
+    renderSkeletonList(listEl);
     try {
       const json = await fetchJSON(`api/gerakan.php?kategori=${encodeURIComponent(kategori)}`);
       const data = json.data || [];
@@ -25,8 +35,8 @@ const SholatApp = (() => {
         listEl.innerHTML = '<li class="loading">Belum ada data gerakan.</li>';
         return;
       }
-      listEl.innerHTML = data.map(g => `
-        <li class="gerakan-item" data-id="${g.id}">
+      listEl.innerHTML = data.map((g, i) => `
+        <li class="gerakan-item" data-id="${g.id}" style="animation-delay:${i * 45}ms">
           <span class="gerakan-num">${g.urutan}</span>
           <span class="gerakan-name">${escapeHTML(g.nama)}</span>
           <span class="gerakan-arrow">›</span>
@@ -52,6 +62,13 @@ const SholatApp = (() => {
     const btnAutoplay = document.getElementById('btn-autoplay');
 
     stopAutoplayTimer();
+
+    container.innerHTML = `
+      <div class="skeleton-bar" style="height:200px;border-radius:20px;margin-bottom:22px;"></div>
+      <div class="skeleton-bar" style="height:22px;width:60%;margin-bottom:12px;"></div>
+      <div class="skeleton-bar" style="height:14px;width:90%;margin-bottom:8px;"></div>
+      <div class="skeleton-bar" style="height:14px;width:80%;"></div>
+    `;
 
     try {
       const json = await fetchJSON(`api/detail.php?id=${id}`);
