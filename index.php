@@ -23,12 +23,12 @@ $kelompok = get_kelompok($pdo);
     <h2>Pilih Mode Penyajian</h2>
     <div class="mode-cards">
       <a href="daftar.php?kategori=dewasa" class="mode-card mode-dewasa">
-        <span class="mode-icon">🧕🏽🧔🏽</span>
+        <span class="mode-icon"></span>
         <h3>Mode Dewasa</h3>
         <p>Penyajian lengkap &amp; formal dengan teks penuh dan keterangan sumber.</p>
       </a>
       <a href="daftar.php?kategori=anak" class="mode-card mode-anak">
-        <span class="mode-icon">🧒🏽👧🏽</span>
+        <span class="mode-icon"></span>
         <h3>Mode Anak-anak</h3>
         <p>Bahasa sederhana, visual ramah anak, dan terjemahan ringkas.</p>
       </a>
