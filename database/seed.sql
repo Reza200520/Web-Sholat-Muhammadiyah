@@ -16,11 +16,11 @@ SELECT * FROM kategori;
 -- Anggota Kelompok
 -- -------------------------------------------------
 INSERT INTO anggota (id_kelompok, nama, nim, peran, urutan) VALUES
-(1,'REZA RAMADHAN',  NULL, 'Ketua Tim / Project Manager',     1),
-(1,'MOCH YANWAR QADAVI',              NULL, 'Front-end Developer',              2),
-(1,'TRISYA SUPRIATI CAROLINA',         NULL, 'Back-end Developer',               3),
-(1,'SURYA HAFAZH',               NULL, 'Database & Content Engineer',      4),
-(1,'PUTRI CANTIKA CITRA SRI HADIANTO', NULL, 'QA, Dokumentasi & Deployment', 5);
+(1,'REZA RAMADHAN',  241220017, 'Ketua Tim / Project Manager',     1),
+(1,'MOCH YANWAR QADAVI',              241220033, 'Front-end Developer',              2),
+(1,'TRISYA SUPRIATI CAROLINA',         241220025, 'Back-end Developer',               3),
+(1,'SURYA HAFAZH',               241220032, 'Database & Content Engineer',      4),
+(1,'PUTRI CANTIKA CITRA SRI HADIANTO', 241220006, 'QA, Dokumentasi & Deployment', 5);
 
 -- =========================================================
 -- KATEGORI DEWASA (id_kategori = 1)
