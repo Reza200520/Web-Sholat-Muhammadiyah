@@ -84,11 +84,11 @@ Setelah deploy:
 
 | Peran | Nama | NIM |
 |-------|------|-----|
-| Ketua Tim / Project Manager | ... | ... |
-| Front-end Developer | ... | ... |
-| Back-end Developer | ... | ... |
-| Database & Content Engineer | ... | ... |
-| QA, Dokumentasi & Deployment | ... | ... |
+| Ketua Tim / Project Manager | REZA RAMADHAN | 241220017 |
+| Front-end Developer | MOCH YANWAR QADAVI | 241220033 |
+| Back-end Developer | TRISYA SUPRIATI CAROLINA | 241220025 |
+| Database & Content Engineer | SURYA HAFAZH | 241220032 |
+| QA, Dokumentasi & Deployment | PUTRI CANTIKA CITRA SRI HADIANTO | 241220006 |
 
 ## 📚 Sumber Konten
 
