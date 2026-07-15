@@ -120,12 +120,15 @@ const SholatApp = (() => {
       // ---------- F-06: Autoplay Berfokus Audio ----------
       btnAutoplay.onclick = () => toggleAutoplay(g, kategori, btnAutoplay);
 
-      // Ambil elemen audio pertama dari container (jika ada)
-      const firstAudio = container.querySelector('audio');
+      // Ambil elemen audio pertama dari container (jika ada) — video tidak pernah ikut dipertimbangkan
+      const firstAudio = getAutoplayAudio();
 
       if (sessionStorage.getItem('autoplay') === '1') {
         btnAutoplay.textContent = '⏸ Hentikan Autoplay';
         btnAutoplay.classList.add('playing');
+
+        // Pastikan video (jika ada) tidak ikut berjalan saat autoplay audio aktif
+        pauseAnyPlayingVideo();
 
         if (firstAudio) {
           // Putar audio otomatis
@@ -159,6 +162,20 @@ const SholatApp = (() => {
     window.location.href = `detail.php?id=${id}&kategori=${encodeURIComponent(kategori)}`;
   }
 
+  // Fitur autoplay HANYA berpatokan pada elemen <audio> di dalam #detail-content.
+  // Elemen <video> sengaja diabaikan (video hanya diputar manual lewat tombol toggle).
+  function getAutoplayAudio() {
+    const container = document.getElementById('detail-content');
+    return container ? container.querySelector('audio') : null;
+  }
+
+  // Menghentikan video jika sedang diputar, agar tidak "bentrok" dengan audio autoplay
+  function pauseAnyPlayingVideo() {
+    const container = document.getElementById('detail-content');
+    const video = container ? container.querySelector('video') : null;
+    if (video && !video.paused) video.pause();
+  }
+
   function toggleAutoplay(g, kategori, btn) {
     const active = sessionStorage.getItem('autoplay') === '1';
     if (active) {
@@ -166,7 +183,7 @@ const SholatApp = (() => {
       stopAutoplayTimer();
       
       // Hentikan audio yang sedang menyala jika autoplay dimatikan manual
-      const activeAudio = document.querySelector('audio');
+      const activeAudio = getAutoplayAudio();
       if (activeAudio) activeAudio.pause();
 
       btn.textContent = '▶ Putar Otomatis';
@@ -176,7 +193,10 @@ const SholatApp = (() => {
       btn.textContent = '⏸ Hentikan Autoplay';
       btn.classList.add('playing');
 
-      const firstAudio = document.querySelector('audio');
+      // Autoplay hanya menyalakan audio; video (jika sedang diputar manual) dihentikan
+      pauseAnyPlayingVideo();
+
+      const firstAudio = getAutoplayAudio();
       if (firstAudio) {
         firstAudio.play().catch(() => {});
         firstAudio.addEventListener('ended', () => {
