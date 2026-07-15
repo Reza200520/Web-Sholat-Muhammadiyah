@@ -89,7 +89,7 @@ INSERT INTO bacaan (id_gerakan, urutan, teks_arab, teks_latin, terjemahan, audio
  'اللهُ أَكْبَرُ',
  'Allaahu Akbar',
  'Allah Maha Besar.',
- 'assets/audio/dewasa/02-takbir.mp3',
+ 'assets/audio/dewasa/02-takbirr.mp3',
  'HPT Muhammadiyah - Kitab Shalat');
 
 -- Gerakan 3: Doa Iftitah (Allahumma Baid - versi HPT Muhammadiyah, Muttafaq alaih)
