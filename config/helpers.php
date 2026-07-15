@@ -9,9 +9,9 @@ function get_kelompok(PDO $pdo): array {
     $stmt = $pdo->query("SELECT * FROM kelompok ORDER BY id ASC LIMIT 1");
     $row = $stmt->fetch();
     return $row ?: [
-        'nama_kelompok' => 'Kelompok 1',
-        'prodi'         => 'Manajemen Bisnis Syariah',
-        'mata_kuliah'   => 'Pengembangan Aplikasi Web',
+        'nama_kelompok' => 'REZA RAMADHAN, SURYA HAFAZH, MOCH YANWAR Q,TRISYA SUPRIATI C, PUTRI CANTIKA CITRA SH',
+        'prodi'         => 'Teknik Informatika',
+        'mata_kuliah'   => 'AIK4',
         'dosen'         => 'Dedy Susanto, S.Pd.I., M.M.',
     ];
 }
