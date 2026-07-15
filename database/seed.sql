@@ -28,11 +28,11 @@ INSERT INTO anggota (id_kelompok, nama, nim, peran, urutan) VALUES
 INSERT INTO gerakan (id_kategori, nama, urutan, deskripsi, gambar_url, video_url) VALUES
 (1,'Niat dan Berdiri Menghadap Kiblat (Qiyam)',1,
  'Berdiri tegak menghadap kiblat. Niat adalah pekerjaan hati — cukup menghadirkan kesadaran dalam hati bahwa akan menunaikan sholat tertentu. Muhammadiyah tidak mengajarkan melafalkan niat (ushalli...) secara lisan sebelum takbir.',
- 'assets/img/dewasa/01-qiyam.jpg','assets/video/dewasa/01-qiyam.mp4'),
+ 'assets/img/dewasa/01-qiyam.jpg','assets/video/dewasa/01-qiyamm.mp4'),
 
 (1,'Takbiratul Ihram',2,
  'Angkat kedua tangan sejajar bahu atau telinga seraya mengucapkan Allahu Akbar. Jari-jari dibentangkan, telapak tangan menghadap kiblat, ujung jari sejajar bagian atas telinga atau bahu. Setelah takbir, tangan kanan diletakkan di atas punggung telapak tangan kiri, pergelangan, dan lengan bawah kiri, didekapkan di dada (bersedekap).',
- 'assets/img/dewasa/02-takbiratul-ihram.jpg',''),
+ 'assets/img/dewasa/02-takbiratul-ihram.jpg','assets/video/dewasa/02-takbiratul-ihram.mp4'),
 
 (1,'Bersedekap — Membaca Doa Iftitah',3,
  'Setelah bersedekap, bacalah doa iftitah. Menurut HPT Muhammadiyah, doa iftitah yang diprioritaskan adalah Allahumma Baid karena keshahihannya sangat kuat (Muttafaq alaih / HR. Bukhari & Muslim).',
@@ -122,14 +122,14 @@ INSERT INTO bacaan (id_gerakan, urutan, teks_arab, teks_latin, terjemahan, audio
 -- Gerakan 6: I'tidal
 INSERT INTO bacaan (id_gerakan, urutan, teks_arab, teks_latin, terjemahan, audio_url, sumber) VALUES
 (6,1,
- 'سَمِعَ اللهُ لِمَنْ حَمِدَهُ',
- 'Sami''allaahu liman hamidah.',
- 'Allah mendengar pujian orang yang memuji-Nya.',
+ 'رَبَّنَا وَلَكَ الْحَمْدُ,سَمِعَ اللهُ لِمَنْ حَمِدَهُ',
+ 'Sami''allaahu liman hamidah, Rabbanaa wa lakal hamdu.',
+ 'Allah mendengar pujian orang yang memuji-Nya, Ya Tuhan kami, bagi-Mu segala puji.',
  'assets/audio/dewasa/06-itidal-bangkit.mp3',
  'HPT Muhammadiyah - Kitab Shalat'),
 (6,2,
-'رَبَّنَا وَلَكَ الْحَمْدُ',
- 'Rabbanaa wa lakal hamdu.',
+'',
+ '',
  'Ya Tuhan kami, bagi-Mu segala puji.',
  'assets/audio/dewasa/06-itidal-doa.mp3',
  'HPT Muhammadiyah - Kitab Shalat');
@@ -254,7 +254,11 @@ INSERT INTO gerakan (id_kategori, nama, urutan, deskripsi, gambar_url, video_url
 
 -- Bacaan mode Anak (id_gerakan 14-26 mengikuti AUTO_INCREMENT setelah 13 gerakan dewasa)
 INSERT INTO bacaan (id_gerakan, urutan, teks_arab, teks_latin, terjemahan, audio_url, sumber) VALUES
-(15,1,'اللهُ أَكْبَرُ','Allaahu Akbar','Allah Maha Besar.','assets/audio/anak/02-takbir.mp3','HPT Muhammadiyah'),
+(15,1,'اللهُ أَكْبَرُ',
+'Allaahu Akbar',
+'Allah Maha Besar.',
+'assets/audio/anak/02-takbir.mp3',
+'HPT Muhammadiyah'),
 (16,1,
  'اللَّهُمَّ بَاعِدْ بَيْنِي وَبَيْنَ خَطَايَايَ ...',
  'Allaahumma baa''id bainii wa baina khathaayaaya...',
@@ -273,9 +277,9 @@ INSERT INTO bacaan (id_gerakan, urutan, teks_arab, teks_latin, terjemahan, audio
  'assets/audio/anak/05-rukuk.mp3','HPT Muhammadiyah'),
  (19,1,
  'سَمِعَ اللهُ لِمَنْ حَمِدَهُ, رَبَّنَا وَلَكَ الْحَمْدُ ، حَمْدًا كَثِيرًا طَيِّبًا مُبَارَكًا فِيهِ',
- 'Sami allaahu liman hamidah, Rabbanaa wa lakal hamdu hamdan katsiiran thayyiban mubaarakan fiih.',
+ 'Sami allaahu liman hamidah, Rabbanaa wa lakal hamdu.',
  'Maha Suci Allah Tuhanku, dan dengan memuji-Mu. Ya Allah, ampunilah aku.',
- 'assets/audio/anak/05-rukuk.mp3','HPT Muhammadiyah'),
+ 'assets/audio/anak/06-itidall.mp3','HPT Muhammadiyah'),
 (20,1,
  'سُبْحَانَكَ اللَّهُمَّ رَبَّنَا وَبِحَمْدِكَ ، اللَّهُمَّ اغْفِرْ لِي',
  'Subhaanakallaahumma rabbanaa wa bihamdika allaahummaghfirlii.',
