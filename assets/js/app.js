@@ -1,15 +1,12 @@
 /* ============================================================
    app.js — Logika Front-end Tuntunan Tata Cara Sholat
    F-01 daftar gerakan | F-02 detail | F-03 audio | F-04 video
-   F-05 next/prev | F-06 autoplay
+   F-05 next/prev | F-06 autoplay berfokus audio selesai
    ============================================================ */
 
 const SholatApp = (() => {
-  let autoplayActive = false;
   let autoplayTimer = null;
-  let autoplayAudioEl = null;
-  let autoplayEndedHandler = null;
-  const AUTOPLAY_DELAY_MS = 6000; // jeda fallback jika gerakan tidak memiliki audio
+  const AUTOPLAY_DELAY_MS = 6000; // jeda cadangan jika tidak ada audio pada gerakan
 
   async function fetchJSON(url) {
     const res = await fetch(url);
@@ -120,11 +117,37 @@ const SholatApp = (() => {
       btnPrev.onclick = () => g.prev_id && goTo(g.prev_id, kategori);
       btnNext.onclick = () => g.next_id && goTo(g.next_id, kategori);
 
-      // ---------- F-06: Autoplay ----------
+      // ---------- F-06: Autoplay Berfokus Audio Selesai ----------
       btnAutoplay.onclick = () => toggleAutoplay(g, kategori, btnAutoplay);
 
+      // Cari elemen audio pertama di halaman detail ini
+      const firstAudio = container.querySelector('audio');
+
       if (sessionStorage.getItem('autoplay') === '1') {
-        startAutoplayTimer(g, kategori, btnAutoplay);
+        btnAutoplay.textContent = '⏸ Hentikan Autoplay';
+        btnAutoplay.classList.add('playing');
+
+        if (firstAudio) {
+          // Mainkan audio otomatis
+          firstAudio.play().catch(() => {
+            // Jika diblokir oleh browser karena interaksi pengguna, pasang fallback timer
+            startAutoplayTimer(g, kategori, btnAutoplay);
+          });
+
+          // Pindah ke halaman berikutnya saat audio ini selesai
+          firstAudio.addEventListener('ended', () => {
+            if (g.next_id) {
+              goTo(g.next_id, kategori);
+            } else {
+              sessionStorage.setItem('autoplay', '0');
+              btnAutoplay.textContent = '▶ Putar Otomatis';
+              btnAutoplay.classList.remove('playing');
+            }
+          });
+        } else {
+          // Jika gerakan tidak memiliki audio bacaan, jalankan jeda waktu cadangan
+          startAutoplayTimer(g, kategori, btnAutoplay);
+        }
       }
 
     } catch (err) {
@@ -141,13 +164,33 @@ const SholatApp = (() => {
     if (active) {
       sessionStorage.setItem('autoplay', '0');
       stopAutoplayTimer();
+
+      // Pause audio aktif jika pengguna mematikan autoplay di tengah jalan
+      const activeAudio = document.querySelector('audio');
+      if (activeAudio) activeAudio.pause();
+
       btn.textContent = '▶ Putar Otomatis';
       btn.classList.remove('playing');
     } else {
       sessionStorage.setItem('autoplay', '1');
       btn.textContent = '⏸ Hentikan Autoplay';
       btn.classList.add('playing');
-      startAutoplayTimer(g, kategori, btn);
+
+      const firstAudio = document.querySelector('audio');
+      if (firstAudio) {
+        firstAudio.play().catch(() => {});
+        firstAudio.addEventListener('ended', () => {
+          if (g.next_id) {
+            goTo(g.next_id, kategori);
+          } else {
+            sessionStorage.setItem('autoplay', '0');
+            btn.textContent = '▶ Putar Otomatis';
+            btn.classList.remove('playing');
+          }
+        });
+      } else {
+        startAutoplayTimer(g, kategori, btn);
+      }
     }
   }
 
@@ -155,41 +198,20 @@ const SholatApp = (() => {
     stopAutoplayTimer();
     btn.textContent = '⏸ Hentikan Autoplay';
     btn.classList.add('playing');
-
-    const advance = () => {
+    autoplayTimer = setTimeout(() => {
       if (g.next_id) {
         goTo(g.next_id, kategori);
       } else {
         sessionStorage.setItem('autoplay', '0');
+        btn.textContent = '▶ Putar Otomatis';
+        btn.classList.remove('playing');
       }
-    };
-
-    const container = document.getElementById('detail-content');
-    const audioEl = container ? container.querySelector('audio') : null;
-
-    if (audioEl) {
-      // Lanjut ke gerakan berikutnya begitu audio bacaan selesai diputar
-      autoplayAudioEl = audioEl;
-      autoplayEndedHandler = advance;
-      audioEl.addEventListener('ended', autoplayEndedHandler);
-      audioEl.play().catch(() => {
-        // Jika autoplay audio diblokir browser, pakai jeda waktu sebagai fallback
-        autoplayTimer = setTimeout(advance, AUTOPLAY_DELAY_MS);
-      });
-    } else {
-      // Tidak ada audio pada gerakan ini, gunakan jeda waktu sebagai fallback
-      autoplayTimer = setTimeout(advance, AUTOPLAY_DELAY_MS);
-    }
+    }, AUTOPLAY_DELAY_MS);
   }
 
   function stopAutoplayTimer() {
     if (autoplayTimer) clearTimeout(autoplayTimer);
     autoplayTimer = null;
-    if (autoplayAudioEl && autoplayEndedHandler) {
-      autoplayAudioEl.removeEventListener('ended', autoplayEndedHandler);
-    }
-    autoplayAudioEl = null;
-    autoplayEndedHandler = null;
   }
 
   function escapeHTML(str) {
