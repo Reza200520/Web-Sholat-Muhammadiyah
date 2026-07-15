@@ -89,7 +89,7 @@ INSERT INTO bacaan (id_gerakan, urutan, teks_arab, teks_latin, terjemahan, audio
  'اللهُ أَكْبَرُ',
  'Allaahu Akbar',
  'Allah Maha Besar.',
- 'assets/audio/dewasa/02-takbir.mp3',
+ 'assets/audio/dewasa/02-takbirr.mp3',
  'HPT Muhammadiyah - Kitab Shalat');
 
 -- Gerakan 3: Doa Iftitah (Allahumma Baid - versi HPT Muhammadiyah, Muttafaq alaih)
@@ -123,14 +123,14 @@ INSERT INTO bacaan (id_gerakan, urutan, teks_arab, teks_latin, terjemahan, audio
 INSERT INTO bacaan (id_gerakan, urutan, teks_arab, teks_latin, terjemahan, audio_url, sumber) VALUES
 (6,1,
  'سَمِعَ اللهُ لِمَنْ حَمِدَهُ',
- 'Sami''allaahu liman hamidah.Rabbanaa wa lakal hamdu hamdan katsiiran thayyiban mubaarakan fiih',
+ 'Sami''allaahu liman hamidah.',
  'Allah mendengar pujian orang yang memuji-Nya.',
  'assets/audio/dewasa/06-itidal-bangkit.mp3',
  'HPT Muhammadiyah - Kitab Shalat'),
 (6,2,
- 'رَبَّنَا وَلَكَ الْحَمْدُ ، حَمْدًا كَثِيرًا طَيِّبًا مُبَارَكًا فِيهِ',
- 'Rabbanaa wa lakal hamdu hamdan katsiiran thayyiban mubaarakan fiih.',
- 'Ya Tuhan kami, bagi-Mu segala puji, pujian yang banyak, baik, dan penuh berkah.',
+'رَبَّنَا وَلَكَ الْحَمْدُ',
+ 'Rabbanaa wa lakal hamdu.',
+ 'Ya Tuhan kami, bagi-Mu segala puji.',
  'assets/audio/dewasa/06-itidal-doa.mp3',
  'HPT Muhammadiyah - Kitab Shalat');
 
