@@ -25,7 +25,7 @@ $kelompok = get_kelompok($pdo);
     <div class="mode-cards">
       <a href="daftar.php?kategori=dewasa" class="mode-card mode-dewasa">
         <span class="mode-icon">
-          <h3>🤵‍♂️🧕</h3>
+          <h3>🤵‍♂️</h3>
         </span>
         <h3>Mode Dewasa</h3>
         <p>Penyajian lengkap &amp; formal dengan teks penuh dan keterangan sumber.</p>
@@ -33,7 +33,7 @@ $kelompok = get_kelompok($pdo);
       </a>
       <a href="daftar.php?kategori=anak" class="mode-card mode-anak">
         <span class="mode-icon">
-          <h3>👶👶</h3>
+          <h3>👶</h3>
         </span>
         <h3>Mode Anak-anak</h3>
         <p>Bahasa sederhana, visual ramah anak, dan terjemahan ringkas.</p>
