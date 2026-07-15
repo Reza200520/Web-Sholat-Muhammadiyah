@@ -100,5 +100,5 @@ kelompok (BAB V) sesuai ketentuan modul.
 
 ## 🔗 URL Live & Repositori
 
-- URL Aplikasi Daring: `(isi setelah deployment)`
-- Repositori GitHub: `(isi tautan repo kelompok)`
+- URL Aplikasi Daring: `https://tatashalatmu.my.id/`
+- Repositori GitHub: `https://github.com/Reza200520/Web-Sholat-Muhammadiyah`
