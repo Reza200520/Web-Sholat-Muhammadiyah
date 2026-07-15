@@ -91,6 +91,7 @@ INSERT INTO bacaan (id_gerakan, urutan, teks_arab, teks_latin, terjemahan, audio
  'Allah Maha Besar.',
  'assets/audio/dewasa/02-takbirr.mp3',
  'HPT Muhammadiyah - Kitab Shalat');
+ SELECT * FROM gerakan;
 
 -- Gerakan 3: Doa Iftitah (Allahumma Baid - versi HPT Muhammadiyah, Muttafaq alaih)
 INSERT INTO bacaan (id_gerakan, urutan, teks_arab, teks_latin, terjemahan, audio_url, sumber) VALUES
@@ -319,3 +320,5 @@ INSERT INTO bacaan (id_gerakan, urutan, teks_arab, teks_latin, terjemahan, audio
  'assets/audio/anak/13-salam.mp3','HPT Muhammadiyah');
  
  
+ SELECT id, nama_gerakan FROM gerakan;
+ DESCRIBE gerakan;
