@@ -1,12 +1,15 @@
 /* ============================================================
    app.js — Logika Front-end Tuntunan Tata Cara Sholat
    F-01 daftar gerakan | F-02 detail | F-03 audio | F-04 video
-   F-05 next/prev | F-06 autoplay berfokus audio
+   F-05 next/prev | F-06 autoplay
    ============================================================ */
 
 const SholatApp = (() => {
+  let autoplayActive = false;
   let autoplayTimer = null;
-  const AUTOPLAY_DELAY_MS = 6000; // Jeda cadangan jika tidak ada audio pada gerakan
+  let autoplayAudioEl = null;
+  let autoplayEndedHandler = null;
+  const AUTOPLAY_DELAY_MS = 6000; // jeda fallback jika gerakan tidak memiliki audio
 
   async function fetchJSON(url) {
     const res = await fetch(url);
@@ -117,40 +120,11 @@ const SholatApp = (() => {
       btnPrev.onclick = () => g.prev_id && goTo(g.prev_id, kategori);
       btnNext.onclick = () => g.next_id && goTo(g.next_id, kategori);
 
-      // ---------- F-06: Autoplay Berfokus Audio ----------
+      // ---------- F-06: Autoplay ----------
       btnAutoplay.onclick = () => toggleAutoplay(g, kategori, btnAutoplay);
 
-      // Ambil elemen audio pertama dari container (jika ada) — video tidak pernah ikut dipertimbangkan
-      const firstAudio = getAutoplayAudio();
-
       if (sessionStorage.getItem('autoplay') === '1') {
-        btnAutoplay.textContent = '⏸ Hentikan Autoplay';
-        btnAutoplay.classList.add('playing');
-
-        // Pastikan video (jika ada) tidak ikut berjalan saat autoplay audio aktif
-        pauseAnyPlayingVideo();
-
-        if (firstAudio) {
-          // Putar audio otomatis
-          firstAudio.play().catch(() => {
-            // Browser memblokir auto-play tanpa interaksi user -> gunakan fallback timer
-            startAutoplayTimer(g, kategori, btnAutoplay);
-          });
-
-          // Pindah otomatis saat file audio selesai berbunyi
-          firstAudio.addEventListener('ended', () => {
-            if (g.next_id) {
-              goTo(g.next_id, kategori);
-            } else {
-              sessionStorage.setItem('autoplay', '0');
-              btnAutoplay.textContent = '▶ Putar Otomatis';
-              btnAutoplay.classList.remove('playing');
-            }
-          });
-        } else {
-          // Jika gerakan tidak memiliki audio, gunakan timer sebagai cadangan
-          startAutoplayTimer(g, kategori, btnAutoplay);
-        }
+        startAutoplayTimer(g, kategori, btnAutoplay);
       }
 
     } catch (err) {
@@ -162,49 +136,18 @@ const SholatApp = (() => {
     window.location.href = `detail.php?id=${id}&kategori=${encodeURIComponent(kategori)}`;
   }
 
-  // Fitur autoplay HANYA berpatokan pada elemen <audio> di dalam #detail-content.
-  // Elemen <video> sengaja diabaikan (video hanya diputar manual lewat tombol toggle).
-  function getAutoplayAudio() {
-    const container = document.getElementById('detail-content');
-    return container ? container.querySelector('audio') : null;
-  }
-
-  // Menghentikan video jika sedang diputar, agar tidak "bentrok" dengan audio autoplay
-  function pauseAnyPlayingVideo() {
-    const container = document.getElementById('detail-content');
-    const video = container ? container.querySelector('video') : null;
-    if (video && !video.paused) video.pause();
-  }
-
   function toggleAutoplay(g, kategori, btn) {
     const active = sessionStorage.getItem('autoplay') === '1';
     if (active) {
       sessionStorage.setItem('autoplay', '0');
       stopAutoplayTimer();
-      
-      // Hentikan audio yang sedang menyala jika autoplay dimatikan manual
-      const activeAudio = getAutoplayAudio();
-      if (activeAudio) activeAudio.pause();
-
       btn.textContent = '▶ Putar Otomatis';
       btn.classList.remove('playing');
     } else {
       sessionStorage.setItem('autoplay', '1');
       btn.textContent = '⏸ Hentikan Autoplay';
       btn.classList.add('playing');
-
-      // Autoplay hanya menyalakan audio; video (jika sedang diputar manual) dihentikan
-      pauseAnyPlayingVideo();
-
-      const firstAudio = getAutoplayAudio();
-      if (firstAudio) {
-        firstAudio.play().catch(() => {});
-        firstAudio.addEventListener('ended', () => {
-          if (g.next_id) goTo(g.next_id, kategori);
-        });
-      } else {
-        startAutoplayTimer(g, kategori, btn);
-      }
+      startAutoplayTimer(g, kategori, btn);
     }
   }
 
@@ -212,20 +155,41 @@ const SholatApp = (() => {
     stopAutoplayTimer();
     btn.textContent = '⏸ Hentikan Autoplay';
     btn.classList.add('playing');
-    autoplayTimer = setTimeout(() => {
+
+    const advance = () => {
       if (g.next_id) {
         goTo(g.next_id, kategori);
       } else {
         sessionStorage.setItem('autoplay', '0');
-        btn.textContent = '▶ Putar Otomatis';
-        btn.classList.remove('playing');
       }
-    }, AUTOPLAY_DELAY_MS);
+    };
+
+    const container = document.getElementById('detail-content');
+    const audioEl = container ? container.querySelector('audio') : null;
+
+    if (audioEl) {
+      // Lanjut ke gerakan berikutnya begitu audio bacaan selesai diputar
+      autoplayAudioEl = audioEl;
+      autoplayEndedHandler = advance;
+      audioEl.addEventListener('ended', autoplayEndedHandler);
+      audioEl.play().catch(() => {
+        // Jika autoplay audio diblokir browser, pakai jeda waktu sebagai fallback
+        autoplayTimer = setTimeout(advance, AUTOPLAY_DELAY_MS);
+      });
+    } else {
+      // Tidak ada audio pada gerakan ini, gunakan jeda waktu sebagai fallback
+      autoplayTimer = setTimeout(advance, AUTOPLAY_DELAY_MS);
+    }
   }
 
   function stopAutoplayTimer() {
     if (autoplayTimer) clearTimeout(autoplayTimer);
     autoplayTimer = null;
+    if (autoplayAudioEl && autoplayEndedHandler) {
+      autoplayAudioEl.removeEventListener('ended', autoplayEndedHandler);
+    }
+    autoplayAudioEl = null;
+    autoplayEndedHandler = null;
   }
 
   function escapeHTML(str) {
