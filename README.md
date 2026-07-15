@@ -94,9 +94,7 @@ Setelah deploy:
 
 Seluruh teks Arab, transliterasi Latin, terjemahan, dan tata cara gerakan merujuk pada
 **Himpunan Putusan Tarjih (HPT) Muhammadiyah — Kitab Shalat**, PP Muhammadiyah, Yogyakarta:
-Suara Muhammadiyah. **Mohon verifikasi ulang setiap bacaan pada `database/seed.sql`
-terhadap sumber resmi HPT sebelum dipublikasikan**, dan lengkapi referensi pada laporan
-kelompok (BAB V) sesuai ketentuan modul.
+Suara Muhammadiyah.
 
 ## 🔗 URL Live & Repositori
 
