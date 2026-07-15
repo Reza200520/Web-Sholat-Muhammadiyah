@@ -36,7 +36,7 @@ $kelompok = get_kelompok($pdo);
           <h3>👶</h3>
         </span>
         <h3>Mode Anak-anak</h3>
-        <p>Bahasa sederhana, visual ramah anak, dan terjemahan ringkas.</p>
+        <p>Bahasa sederhana, visual ramah anak, dan terjemahan yang ringkas.</p>
         <span class="mode-go">Mulai belajar →</span>
       </a>
     </div>
